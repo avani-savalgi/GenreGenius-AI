@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Zap, Download, RefreshCw, BarChart3, TrendingUp, Search, AlertCircle, Database, Clock } from 'lucide-react';
-
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 // Component Imports
 import MetricCard from "./components/ui/MetricCard";
 import GrowthChart from "./components/dashboard/GrowthChart";
@@ -22,7 +22,7 @@ const App = () => {
   const performAnalysis = async (endpoint, genre) => {
     setIsAnalyzing(true);
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/${endpoint}`, { genre });
+      const response = await axios.get(`${API_BASE_URL}/api/analyze?genre=${genre}`);
       setData(response.data);
     } catch (e) { 
       alert("Backend Connection Error"); 
@@ -38,7 +38,7 @@ const App = () => {
     if (!data) return;
     setIsDownloading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/generate-pdf", data, { responseType: 'blob' });
+      const response = await axios.post(`${API_BASE_URL}/api/generate-pdf`, data, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;

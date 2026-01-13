@@ -10,11 +10,16 @@ import uvicorn
 from scraper import run_full_analysis
 from redis_cache_layer import MarketAnalysisCache, add_cache_endpoints
 
+origins = [
+    "http://localhost:5173",            # Local React
+    "https://genre-genius-ai.vercel.app" # Live Production
+]
+
 app = FastAPI(title="GenreGenius AI - Standardized Engine")
 cache = MarketAnalysisCache()
 add_cache_endpoints(app, cache)
 
-app.add_middleware(CORSMiddleware, allow_origins=["https://genre-genius-ai.vercel.app"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"])
 
 # --- DYNAMIC FORECAST LOGIC ---
 def generate_growth_forecast(apps_data: list, opportunity_score: int):
