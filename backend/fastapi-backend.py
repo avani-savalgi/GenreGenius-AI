@@ -69,14 +69,14 @@ async def process_analysis(genre: str):
     return response
 
 @app.get("/api/analyze")
-async def analyze_market(request: dict):
-    genre = request.get("genre", "Productivity")
+async def analyze_market(genre: str = "Productivity"):
     cached = cache.get_analysis(genre)
     if cached:
         cached["is_cached"] = True
         return cached
     
     try:
+        # Pass the string genre to your processor
         response = await process_analysis(genre)
         cache.cache_analysis(genre, response)
         return response
@@ -84,23 +84,25 @@ async def analyze_market(request: dict):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/analyze/refresh")
-async def refresh_market(request: dict):
+async def refresh_market(genre: str = "Productivity"): # Get genre URL
     """Forced refresh endpoint used by the React button."""
-    genre = request.get("genre", "Productivity")
     try:
+        
         response = await process_analysis(genre)
+        
+        # Update the cache with the newest results
         cache.cache_analysis(genre, response)
+        
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 @app.post("/api/generate-pdf")
 async def generate_pdf(data: dict):
     """Generates the blueprint report."""
     from pdf_generator import MVPBlueprintGenerator
     generator = MVPBlueprintGenerator()
     
-    # Fixed: Uses tempfile correctly with the import
+    
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp:
         try:
             generator.generate_report(data, tmp.name)
