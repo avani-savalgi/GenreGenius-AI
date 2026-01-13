@@ -1,32 +1,8 @@
-HEAD
-# Web & API
 fastapi==0.115.0
 uvicorn==0.30.0
-
-# Data & Analysis
 google-play-scraper==1.2.7
 numpy==1.26.4
 matplotlib==3.8.4
 python-dotenv==1.0.1
-
-# Report Generation
 reportlab==4.2.0
-
-# Infrastructure
 redis==5.0.4
-
-# Web Framework
-fastapi>=0.115.0
-uvicorn>=0.30.0
-
-# Market Data & AI
-google-play-scraper>=1.2.7
-reportlab>=4.2.0
-matplotlib>=3.9.0
-numpy>=2.0.0
-python-dotenv>=1.0.1
-
-# Data Layer
-redis>=5.0.0
-b3c9bbb50316174c9e53c4be23ccf15bd2c8766c
-
