@@ -14,7 +14,7 @@ app = FastAPI(title="GenreGenius AI - Standardized Engine")
 cache = MarketAnalysisCache()
 add_cache_endpoints(app, cache)
 
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["https://genre-genius-ai.vercel.app"], allow_methods=["*"], allow_headers=["*"])
 
 # --- DYNAMIC FORECAST LOGIC ---
 def generate_growth_forecast(apps_data: list, opportunity_score: int):
