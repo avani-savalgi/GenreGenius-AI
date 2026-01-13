@@ -1,3 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.env
+
+# Node / React
+node_modules/
+dist/
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
