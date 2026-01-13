@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-import tempfile  # Fixed: Added missing import
+import tempfile  
 import random
 import os
 from datetime import datetime
@@ -68,7 +68,7 @@ async def process_analysis(genre: str):
     }
     return response
 
-@app.post("/api/analyze")
+@app.get("/api/analyze")
 async def analyze_market(request: dict):
     genre = request.get("genre", "Productivity")
     cached = cache.get_analysis(genre)
@@ -83,7 +83,7 @@ async def analyze_market(request: dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/api/analyze/refresh")
+@app.get("/api/analyze/refresh")
 async def refresh_market(request: dict):
     """Forced refresh endpoint used by the React button."""
     genre = request.get("genre", "Productivity")
