@@ -12,7 +12,8 @@ from redis_cache_layer import MarketAnalysisCache, add_cache_endpoints
 
 origins = [
     "http://localhost:5173",            # Local React
-    "https://genre-genius-ai.vercel.app" # Live Production
+    "https://genre-genius-ai.vercel.app",# Live Production
+     "https://genre-genius-pv1cuq0ek-avani-savalgis-projects.vercel.app" 
 ]
 
 app = FastAPI(title="GenreGenius AI - Standardized Engine")
